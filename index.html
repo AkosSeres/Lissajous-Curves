@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Lissajous curves</title>
+    <meta charset="UTF-8">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        div {
+            position: fixed;
+            resize: none;
+            overflow: auto;
+            border-right: 2px solid;
+            width: 10%;
+            height: 100%;
+        }
+
+        canvas {
+            position: fixed;
+            width: 90%;
+            right: 0px;
+            top: 0px;
+            height: 100%;
+        }
+        input{
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+    <div id="leftDiv">
+        <b>f<sub>x</sub>:</b>
+        <input id="fx" type="number" value="4"><br>
+        <b>f<sub>y</sub>:</b>
+        <input id="fy" type="number" value="5"><br>
+         φ<sub>x</sub>:
+        <input id="anglex" type="number" value="0"> π<br>
+         φ<sub>y</sub>:
+        <input id="angley" type="number" value="0"> π<br><br>
+        <input id="goButton" type="button" value="GO!" style="width:100%;">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
