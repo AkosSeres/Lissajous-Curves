@@ -5,7 +5,11 @@ var fxInput = document.getElementById("fx");
 var fyInput = document.getElementById("fy");
 var axInput = document.getElementById("anglex");
 var ayInput = document.getElementById("angley");
+var resInput = document.getElementById("air");
 var steps = 5;
+var Ax = 1;
+var Ay = 1;
+var res = 0;
 
 var fx = 1;
 var fy = 1;
@@ -17,6 +21,7 @@ resizeCanvas();
 restart();
 
 setInterval(() => {
+    let c = res;
     let width = canvas.width;
     let height = canvas.height;
     let ctx = canvas.getContext("2d");
@@ -28,13 +33,22 @@ setInterval(() => {
     for (let i = 0; i < steps; i++) {
 
         let point = {
-            x: Math.sin(time * fx * 2 * Math.PI + anglex),
-            y: Math.sin(time * fy * 2 * Math.PI + angley)
+            x: Ax * Math.sin(time * fx * 2 * Math.PI + anglex),
+            y: Ay * Math.sin(time * fy * 2 * Math.PI + angley)
         };
         time += dt;
         let nextPoint = {
-            x: Math.sin(time * fx * 2 * Math.PI + anglex),
-            y: Math.sin(time * fy * 2 * Math.PI + angley)
+            x: Ax * Math.sin(time * fx * 2 * Math.PI + anglex),
+            y: Ay * Math.sin(time * fy * 2 * Math.PI + angley)
+        };
+
+        let Ex = Ax * fx * fx * (1 - (Math.abs(nextPoint.x - point.x)) * c);
+        Ax = Ex / (fx * fx);
+        let Ey = Ay * fy * fy * (1 - (Math.abs(nextPoint.y - point.y)) * c);
+        Ay = Ey / (fy * fy);
+        nextPoint = {
+            x: Ax * Math.sin(time * fx * 2 * Math.PI + anglex),
+            y: Ay * Math.sin(time * fy * 2 * Math.PI + angley)
         };
 
         ctx.beginPath();
@@ -69,6 +83,11 @@ function restart() {
 
     anglex = axInput.value ? axInput.value * Math.PI : 0;
     angley = ayInput.value ? ayInput.value * Math.PI : 0;
+
+    res = resInput.value ? resInput.value : 0;
+
+    Ax = 1;
+    Ay = 1;
 
     let ctx = canvas.getContext("2d");
     ctx.fillStyle = "#FFFFFF";
